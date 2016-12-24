@@ -1,0 +1,2 @@
+# django-cropperjs
+Pillow + CropperJS
