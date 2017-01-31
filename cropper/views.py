@@ -1,10 +1,10 @@
+import io
+import json
 from django.shortcuts import render
 from .forms import FileUploadForm
 from .models import Document
 from PIL import Image
-import io
 from django.core.files.uploadedfile import InMemoryUploadedFile
-import json
 
 
 def cropper_js(request):
