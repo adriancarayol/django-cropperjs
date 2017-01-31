@@ -1,4 +1,4 @@
-#!/home/adrian/Escritorio/cropperjs/venv/bin/python2
+#!/home/acarayol/Escritorio/django-cropperjs/venv/bin/python3.5
 from __future__ import print_function
 import base64
 import os

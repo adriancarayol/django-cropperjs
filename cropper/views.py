@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .forms import FileUploadForm
 from .models import Document
 from PIL import Image
-import StringIO
+import io
 from django.core.files.uploadedfile import InMemoryUploadedFile
 import json
 
@@ -13,11 +13,11 @@ def cropper_js(request):
         if form.is_valid():
             img_data = dict(request.POST.iteritems())
 
-            x = None
-            y = None
-            w = None
-            h = None
-            rotate = None
+            x = None # Coordinate x
+            y = None # Coordinate y
+            w = None # Width
+            h = None # Height
+            rotate = None # Rotate
             for key, value in img_data.iteritems():
                 if key == "avatar_data":
                     str_value = json.loads(value)
@@ -27,13 +27,14 @@ def cropper_js(request):
                     w = str_value.get('width')
                     h = str_value.get('height')
                     rotate = str_value.get('rotate')
+
             print('x: {}, y: {}, w: {}, h: {}, rotate: {}'.format(x, y, w, h, rotate))
-            
+
             im = Image.open(request.FILES['docfile']).convert('RGBA')
 
             tempfile = im.rotate(-rotate, expand=True)
             tempfile = tempfile.crop((int(x), int(y), int(w+x), int(h+y)))
-            tempfile_io = StringIO.StringIO()
+            tempfile_io = io.StringIO.StringIO()
             tempfile.save(tempfile_io, format='PNG')
             image_file = InMemoryUploadedFile(tempfile_io, None, 'rotate.png', 'image/png', tempfile_io.len, None)
 
@@ -41,10 +42,10 @@ def cropper_js(request):
             newdoc.docfile.save('rotate.png', image_file)
             newdoc.save()
             
-            print 'valid form'
+            print('Cropped image!')
         else:
-            print 'invalid form'
-            print form.errors
+            print('Uncut image!')
+            print(form.errors)
     documents = Document.objects.all()
     context = {'form': FileUploadForm, 'documents': documents}
     return render(request, "index.html", context)

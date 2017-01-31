@@ -1,4 +1,4 @@
-#!/home/adrian/Escritorio/cropperjs/venv/bin/python
+#!/home/acarayol/Escritorio/django-cropperjs/venv/bin/python
 
 import sys
 import getopt
