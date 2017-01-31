@@ -270,8 +270,8 @@
 
     submitDone: function (data) {
       console.log(data);
-
-      if ($.isPlainObject(data) && data.state === 200) {
+      var _respose = data.data;
+      if ($.isPlainObject(_respose) && _respose.state == 200) {
         if (data.result) {
           this.url = data.result;
 
@@ -285,8 +285,8 @@
           }
 
           this.$avatarInput.val('');
-        } else if (data.message) {
-          this.alert(data.message);
+        } else if (_respose.message) {
+          this.alert(_respose.message);
         }
       } else {
         this.alert('Failed to response');

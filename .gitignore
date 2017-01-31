@@ -8,3 +8,6 @@ venv
 # logs and database#
 *.log
 *.sqlite3
+# media folder #
+##########
+media
