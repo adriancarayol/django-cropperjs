@@ -1,3 +1,10 @@
+# IDE's #
+##########
 .c9
 .idea
+# virtualenv #
+##########
 venv
+# logs and database#
+*.log
+*.sqlite3
